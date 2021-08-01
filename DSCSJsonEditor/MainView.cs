@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using DSCSJsonEditor.Models;
 using DSCSJsonEditor.ViewModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace DSCSJsonEditor
 {
@@ -179,9 +180,17 @@ namespace DSCSJsonEditor
         private void ExportButton_Click(object sender, EventArgs e)
         {
             var areas = this.areaLookup.Select(pair => pair.Value);
-            Console.WriteLine(JsonConvert.SerializeObject(areas, Formatting.Indented, new JsonSerializerSettings()
+
+            var contractResolver = new DefaultContractResolver
             {
+                NamingStrategy = new CamelCaseNamingStrategy(),
+            };
+
+            Console.WriteLine(JsonConvert.SerializeObject(areas, new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented,
                 NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = contractResolver,
             }));
         }
 
