@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# SA1400: Access modifier should be declared
+dotnet_diagnostic.SA1400.severity = error
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
