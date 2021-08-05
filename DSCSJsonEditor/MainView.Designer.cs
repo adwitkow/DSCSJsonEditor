@@ -39,12 +39,12 @@ namespace DSCSJsonEditor
             this.addElementButton = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
-            this.mainViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.entitiesGroupBox = new System.Windows.Forms.GroupBox();
             this.entitiesDataGridView = new System.Windows.Forms.DataGridView();
             this.filtersGroupBox = new System.Windows.Forms.GroupBox();
             this.filtersDataGridView = new System.Windows.Forms.DataGridView();
+            this.mainViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -54,7 +54,6 @@ namespace DSCSJsonEditor
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -63,6 +62,7 @@ namespace DSCSJsonEditor
             ((System.ComponentModel.ISupportInitialize)(this.entitiesDataGridView)).BeginInit();
             this.filtersGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filtersDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -175,10 +175,6 @@ namespace DSCSJsonEditor
             this.descriptionTextBox.Size = new System.Drawing.Size(622, 93);
             this.descriptionTextBox.TabIndex = 0;
             // 
-            // mainViewModelBindingSource
-            // 
-            this.mainViewModelBindingSource.DataSource = typeof(DSCSJsonEditor.ViewModels.MainViewModel);
-            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -212,9 +208,7 @@ namespace DSCSJsonEditor
             this.entitiesDataGridView.AllowUserToAddRows = false;
             this.entitiesDataGridView.AllowUserToDeleteRows = false;
             this.entitiesDataGridView.AllowUserToResizeRows = false;
-            this.entitiesDataGridView.AutoGenerateColumns = false;
             this.entitiesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.entitiesDataGridView.DataSource = this.mainViewModelBindingSource;
             this.entitiesDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entitiesDataGridView.Location = new System.Drawing.Point(3, 16);
             this.entitiesDataGridView.Name = "entitiesDataGridView";
@@ -244,6 +238,10 @@ namespace DSCSJsonEditor
             this.filtersDataGridView.Size = new System.Drawing.Size(142, 325);
             this.filtersDataGridView.TabIndex = 1;
             // 
+            // mainViewModelBindingSource
+            // 
+            this.mainViewModelBindingSource.DataSource = typeof(DSCSJsonEditor.ViewModels.MainViewModel);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,7 +260,6 @@ namespace DSCSJsonEditor
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -271,6 +268,7 @@ namespace DSCSJsonEditor
             ((System.ComponentModel.ISupportInitialize)(this.entitiesDataGridView)).EndInit();
             this.filtersGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filtersDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
