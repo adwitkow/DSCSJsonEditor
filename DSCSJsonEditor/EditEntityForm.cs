@@ -15,14 +15,63 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Windows.Forms;
+using DSCSJsonEditor.Models;
+using DSCSJsonEditor.ViewModels;
 
 namespace DSCSJsonEditor
 {
     public partial class EditEntityForm : Form
     {
+        private bool saving;
+
         public EditEntityForm()
         {
             this.InitializeComponent();
+        }
+
+        public EditEntityViewModel ViewModel { get; set; }
+
+        public void ShowFor(IWin32Window owner, Entity model)
+        {
+            // TODO: This if block is really awkward,
+            // I guess the EditEntityViewModel should allow for an empty constructor
+            if (this.ViewModel is null)
+            {
+                this.ViewModel = new EditEntityViewModel(model.Details);
+            }
+            else
+            {
+                this.ViewModel.EntityDetails = model.Details;
+            }
+
+            this.editEntityViewModelBindingSource.DataSource = this.ViewModel;
+
+            this.ViewModel.BeginEdit();
+            this.ShowDialog(owner);
+        }
+
+        private void SaveButton_Click(object sender, System.EventArgs e)
+        {
+            this.saving = true;
+
+            this.ViewModel.EndEdit();
+            this.Close();
+
+            this.saving = false;
+        }
+
+        private void CancelButton_Click(object sender, System.EventArgs e)
+        {
+            this.ViewModel.CancelEdit();
+            this.Close();
+        }
+
+        private void EditEntityForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!this.saving)
+            {
+                this.ViewModel.CancelEdit();
+            }
         }
     }
 }

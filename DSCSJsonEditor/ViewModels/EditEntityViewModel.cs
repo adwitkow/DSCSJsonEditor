@@ -15,20 +15,62 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using DSCSJsonEditor.Models;
 
 namespace DSCSJsonEditor.ViewModels
 {
-    public class EditEntityViewModel : IEditableObject
+    public class EditEntityViewModel : INotifyPropertyChanged
     {
         private EntityDetails rollback;
+        private EntityDetails entityDetails;
 
         public EditEntityViewModel(EntityDetails entity)
         {
             this.EntityDetails = entity;
         }
 
-        public EntityDetails EntityDetails { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string Name
+        {
+            get => this.EntityDetails.Name;
+            set
+            {
+                this.EntityDetails.Name = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public string WikiUrl
+        {
+            get => this.EntityDetails.WikiUrl;
+            set
+            {
+                this.EntityDetails.WikiUrl = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public EntityDetails NewGamePlusEntity
+        {
+            get => this.EntityDetails.NewGamePlusEntity;
+            set
+            {
+                this.EntityDetails.NewGamePlusEntity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public EntityDetails EntityDetails
+        {
+            get => this.entityDetails;
+            set
+            {
+                this.entityDetails = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         public void BeginEdit()
         {
@@ -49,18 +91,29 @@ namespace DSCSJsonEditor.ViewModels
 
         public void CancelEdit()
         {
-            this.CopyProperties(this.rollback, this.EntityDetails);
+            this.CopyProperties(this.rollback, this.EntityDetails, true);
         }
 
         public void EndEdit()
         {
-            // Uhh, do nothing?
+            this.rollback = new EntityDetails();
         }
 
-        private void CopyProperties(EntityDetails from, EntityDetails to)
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CopyProperties(EntityDetails from, EntityDetails to, bool notify = false)
         {
             to.Name = from.Name;
             to.WikiUrl = from.WikiUrl;
+
+            if (notify)
+            {
+                this.NotifyPropertyChanged(nameof(this.Name));
+                this.NotifyPropertyChanged(nameof(this.WikiUrl));
+            }
         }
     }
 }

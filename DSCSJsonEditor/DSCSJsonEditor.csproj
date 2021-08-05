@@ -99,6 +99,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DSCSJsonEditor.ViewModels.EditEntityViewModel.datasource" />
     <None Include="Properties\DataSources\DSCSJsonEditor.ViewModels.MainViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

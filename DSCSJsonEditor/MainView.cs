@@ -199,7 +199,8 @@ namespace DSCSJsonEditor
 
         private void EntitiesDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.editEntityForm.ShowDialog(this);
+            var selectedEntity = (Entity)this.entitiesDataGridView.SelectedRows[0].DataBoundItem;
+            this.editEntityForm.ShowFor(this, selectedEntity);
         }
 
         private void PopulateStepsTreeView()
