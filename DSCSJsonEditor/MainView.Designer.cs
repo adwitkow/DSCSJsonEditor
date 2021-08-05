@@ -217,6 +217,7 @@ namespace DSCSJsonEditor
             this.entitiesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.entitiesDataGridView.Size = new System.Drawing.Size(464, 325);
             this.entitiesDataGridView.TabIndex = 0;
+            this.entitiesDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EntitiesDataGridView_CellDoubleClick);
             // 
             // filtersGroupBox
             // 

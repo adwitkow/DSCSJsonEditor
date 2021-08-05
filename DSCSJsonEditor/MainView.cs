@@ -33,9 +33,11 @@ namespace DSCSJsonEditor
         private Dictionary<TreeNode, Area> areaLookup;
         private Dictionary<TreeNode, Step> stepLookup;
         private MainViewModel viewModel;
+        private EditEntityForm editEntityForm;
 
         public MainView()
         {
+            this.editEntityForm = new EditEntityForm();
             this.entityParser = new EntityParser();
 
             // TODO: Figure out if we really want to store the TreeNodes as keys
@@ -193,6 +195,11 @@ namespace DSCSJsonEditor
                 NullValueHandling = NullValueHandling.Ignore,
                 ContractResolver = contractResolver,
             }));
+        }
+
+        private void EntitiesDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.editEntityForm.ShowDialog(this);
         }
 
         private void PopulateStepsTreeView()

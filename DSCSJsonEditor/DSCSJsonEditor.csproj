@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="EditEntityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditEntityForm.Designer.cs">
+      <DependentUpon>EditEntityForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntityParser.cs" />
     <Compile Include="MainView.cs">
       <SubType>Form</SubType>
@@ -73,6 +79,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <EmbeddedResource Include="EditEntityForm.resx">
+      <DependentUpon>EditEntityForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
