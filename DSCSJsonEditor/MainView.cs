@@ -186,6 +186,7 @@ namespace DSCSJsonEditor
                 NamingStrategy = new CamelCaseNamingStrategy(),
             };
 
+            // TODO: Save the serialized data
             Console.WriteLine(JsonConvert.SerializeObject(areas, new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
