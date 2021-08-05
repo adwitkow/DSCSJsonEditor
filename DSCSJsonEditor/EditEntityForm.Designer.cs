@@ -31,15 +31,15 @@ namespace DSCSJsonEditor
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.nameLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.wikiUrlLabel = new System.Windows.Forms.Label();
+            this.newGamePlusLabel = new System.Windows.Forms.Label();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.wikiUrlTextBox = new System.Windows.Forms.TextBox();
+            this.newGamePlusTextBox = new System.Windows.Forms.TextBox();
+            this.editNewGamePlusButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -49,14 +49,14 @@ namespace DSCSJsonEditor
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel1.Controls.Add(this.nameLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBox3, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.wikiUrlLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.newGamePlusLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.nameTextBox, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.wikiUrlTextBox, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.newGamePlusTextBox, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.editNewGamePlusButton, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -81,92 +81,92 @@ namespace DSCSJsonEditor
             this.nameLabel.Text = "Name";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // wikiUrlLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 31);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Wiki URL";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.wikiUrlLabel.AutoSize = true;
+            this.wikiUrlLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wikiUrlLabel.Location = new System.Drawing.Point(3, 31);
+            this.wikiUrlLabel.Name = "wikiUrlLabel";
+            this.wikiUrlLabel.Size = new System.Drawing.Size(80, 31);
+            this.wikiUrlLabel.TabIndex = 1;
+            this.wikiUrlLabel.Text = "Wiki URL";
+            this.wikiUrlLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // newGamePlusLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 31);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "New Game+";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.newGamePlusLabel.AutoSize = true;
+            this.newGamePlusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newGamePlusLabel.Location = new System.Drawing.Point(3, 62);
+            this.newGamePlusLabel.Name = "newGamePlusLabel";
+            this.newGamePlusLabel.Size = new System.Drawing.Size(80, 31);
+            this.newGamePlusLabel.TabIndex = 2;
+            this.newGamePlusLabel.Text = "New Game+";
+            this.newGamePlusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox1
+            // nameTextBox
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(89, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(203, 20);
-            this.textBox1.TabIndex = 3;
+            this.tableLayoutPanel1.SetColumnSpan(this.nameTextBox, 2);
+            this.nameTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nameTextBox.Location = new System.Drawing.Point(89, 3);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(203, 20);
+            this.nameTextBox.TabIndex = 3;
             // 
-            // textBox2
+            // wikiUrlTextBox
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox2, 2);
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(89, 34);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(203, 20);
-            this.textBox2.TabIndex = 4;
+            this.tableLayoutPanel1.SetColumnSpan(this.wikiUrlTextBox, 2);
+            this.wikiUrlTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wikiUrlTextBox.Location = new System.Drawing.Point(89, 34);
+            this.wikiUrlTextBox.Name = "wikiUrlTextBox";
+            this.wikiUrlTextBox.Size = new System.Drawing.Size(203, 20);
+            this.wikiUrlTextBox.TabIndex = 4;
             // 
-            // textBox3
+            // newGamePlusTextBox
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(89, 65);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(138, 20);
-            this.textBox3.TabIndex = 5;
+            this.newGamePlusTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newGamePlusTextBox.Location = new System.Drawing.Point(89, 65);
+            this.newGamePlusTextBox.Name = "newGamePlusTextBox";
+            this.newGamePlusTextBox.ReadOnly = true;
+            this.newGamePlusTextBox.Size = new System.Drawing.Size(137, 20);
+            this.newGamePlusTextBox.TabIndex = 5;
             // 
-            // button1
+            // editNewGamePlusButton
             // 
-            this.button1.Location = new System.Drawing.Point(233, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(59, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Edit";
-            this.button1.UseVisualStyleBackColor = true;
+            this.editNewGamePlusButton.Location = new System.Drawing.Point(232, 65);
+            this.editNewGamePlusButton.Name = "editNewGamePlusButton";
+            this.editNewGamePlusButton.Size = new System.Drawing.Size(59, 23);
+            this.editNewGamePlusButton.TabIndex = 6;
+            this.editNewGamePlusButton.Text = "Edit";
+            this.editNewGamePlusButton.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.saveButton);
+            this.panel1.Controls.Add(this.cancelButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(89, 96);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(203, 25);
             this.panel1.TabIndex = 7;
             // 
-            // button2
+            // saveButton
             // 
-            this.button2.Location = new System.Drawing.Point(128, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.saveButton.Location = new System.Drawing.Point(49, 3);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 1;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // cancelButton
             // 
-            this.button3.Location = new System.Drawing.Point(49, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Save";
-            this.button3.UseVisualStyleBackColor = true;
+            this.cancelButton.Location = new System.Drawing.Point(128, 3);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 0;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // EditEntityForm
             // 
@@ -187,14 +187,14 @@ namespace DSCSJsonEditor
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label nameLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label wikiUrlLabel;
+        private System.Windows.Forms.Label newGamePlusLabel;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.TextBox wikiUrlTextBox;
+        private System.Windows.Forms.TextBox newGamePlusTextBox;
+        private System.Windows.Forms.Button editNewGamePlusButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
