@@ -78,6 +78,7 @@
     <Compile Include="Models\Step.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EditEntityViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <EmbeddedResource Include="EditEntityForm.resx">
       <DependentUpon>EditEntityForm.cs</DependentUpon>
