@@ -39,15 +39,12 @@ namespace DSCSJsonEditor
             this.addElementButton = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
+            this.mainViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.entitiesGroupBox = new System.Windows.Forms.GroupBox();
             this.entitiesDataGridView = new System.Windows.Forms.DataGridView();
             this.filtersGroupBox = new System.Windows.Forms.GroupBox();
             this.filtersDataGridView = new System.Windows.Forms.DataGridView();
-            this.mainViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.areasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.selectedStepDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -57,6 +54,7 @@ namespace DSCSJsonEditor
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -65,7 +63,6 @@ namespace DSCSJsonEditor
             ((System.ComponentModel.ISupportInitialize)(this.entitiesDataGridView)).BeginInit();
             this.filtersGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filtersDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -178,6 +175,10 @@ namespace DSCSJsonEditor
             this.descriptionTextBox.Size = new System.Drawing.Size(622, 93);
             this.descriptionTextBox.TabIndex = 0;
             // 
+            // mainViewModelBindingSource
+            // 
+            this.mainViewModelBindingSource.DataSource = typeof(DSCSJsonEditor.ViewModels.MainViewModel);
+            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -213,10 +214,6 @@ namespace DSCSJsonEditor
             this.entitiesDataGridView.AllowUserToResizeRows = false;
             this.entitiesDataGridView.AutoGenerateColumns = false;
             this.entitiesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.entitiesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.areasDataGridViewTextBoxColumn,
-            this.selectedStepDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn});
             this.entitiesDataGridView.DataSource = this.mainViewModelBindingSource;
             this.entitiesDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entitiesDataGridView.Location = new System.Drawing.Point(3, 16);
@@ -247,31 +244,6 @@ namespace DSCSJsonEditor
             this.filtersDataGridView.Size = new System.Drawing.Size(142, 325);
             this.filtersDataGridView.TabIndex = 1;
             // 
-            // mainViewModelBindingSource
-            // 
-            this.mainViewModelBindingSource.DataSource = typeof(DSCSJsonEditor.ViewModels.MainViewModel);
-            // 
-            // areasDataGridViewTextBoxColumn
-            // 
-            this.areasDataGridViewTextBoxColumn.DataPropertyName = "Areas";
-            this.areasDataGridViewTextBoxColumn.HeaderText = "Areas";
-            this.areasDataGridViewTextBoxColumn.Name = "areasDataGridViewTextBoxColumn";
-            this.areasDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // selectedStepDataGridViewTextBoxColumn
-            // 
-            this.selectedStepDataGridViewTextBoxColumn.DataPropertyName = "SelectedStep";
-            this.selectedStepDataGridViewTextBoxColumn.HeaderText = "SelectedStep";
-            this.selectedStepDataGridViewTextBoxColumn.Name = "selectedStepDataGridViewTextBoxColumn";
-            this.selectedStepDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,6 +262,7 @@ namespace DSCSJsonEditor
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -298,7 +271,6 @@ namespace DSCSJsonEditor
             ((System.ComponentModel.ISupportInitialize)(this.entitiesDataGridView)).EndInit();
             this.filtersGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filtersDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,9 +292,6 @@ namespace DSCSJsonEditor
         private System.Windows.Forms.GroupBox filtersGroupBox;
         private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.BindingSource mainViewModelBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn areasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn selectedStepDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }
 
