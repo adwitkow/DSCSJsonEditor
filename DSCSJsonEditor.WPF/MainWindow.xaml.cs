@@ -38,28 +38,20 @@ namespace DSCSJsonEditor.WPF
 
         private void BindSelectedStepContainer(object obj)
         {
-            var step = obj as IStepContainer;
-
-            if (step is null)
+            if (obj is IStepContainer step)
             {
-                return;
+                // TODO: Access the ViewModel safely, without the cast
+                ((MainViewModel)this.DataContext).SelectedStepContainer = step;
             }
-
-            // TODO: Access the ViewModel safely, without the cast
-            ((MainViewModel)this.DataContext).SelectedStepContainer = step;
         }
 
         private void BindSelectedStep(object obj)
         {
-            var step = obj as Step;
-
-            if (step is null)
+            if (obj is Step step)
             {
-                return;
+                // TODO: Access the ViewModel safely, without the cast
+                ((MainViewModel)this.DataContext).SelectedStep = step;
             }
-
-            // TODO: Access the ViewModel safely, without the cast
-            ((MainViewModel)this.DataContext).SelectedStep = step;
         }
     }
 }
