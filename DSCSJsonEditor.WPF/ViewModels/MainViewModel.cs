@@ -60,7 +60,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
-
         public Step SelectedStep
         {
             get => this.selectedStep;
