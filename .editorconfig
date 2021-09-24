@@ -5,3 +5,12 @@ dotnet_diagnostic.SA1400.severity = error
 
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
+
+# IDE0003: Remove qualification
+dotnet_diagnostic.IDE0003.severity = none
+
+# IDE0090: Use 'new(...)'
+dotnet_diagnostic.IDE0090.severity = none
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
