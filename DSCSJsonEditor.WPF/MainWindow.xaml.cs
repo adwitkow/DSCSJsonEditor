@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using DSCSJsonEditor.Core.Models;
+using DSCSJsonEditor.WPF.ViewModels;
+using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace DSCSJsonEditor.WPF
@@ -26,6 +30,38 @@ namespace DSCSJsonEditor.WPF
         public MainWindow()
         {
             this.InitializeComponent();
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            this.BindSelectedStep(e.NewValue);
+            this.BindSelectedStepContainer(e.NewValue);
+        }
+
+        private void BindSelectedStepContainer(object obj)
+        {
+            var step = obj as IStepContainer;
+
+            if (step is null)
+            {
+                return;
+            }
+
+            // TODO: Access the ViewModel safely, without the cast
+            ((MainViewModel)this.DataContext).SelectedStepContainer = step;
+        }
+
+        private void BindSelectedStep(object obj)
+        {
+            var step = obj as Step;
+
+            if (step is null)
+            {
+                return;
+            }
+
+            // TODO: Access the ViewModel safely, without the cast
+            ((MainViewModel)this.DataContext).SelectedStep = step;
         }
     }
 }

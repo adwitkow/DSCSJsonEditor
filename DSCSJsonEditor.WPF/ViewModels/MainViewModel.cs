@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -25,28 +26,40 @@ namespace DSCSJsonEditor.WPF.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private IStepContainer selectedStepContainer;
         private Step selectedStep;
-        private List<Area> areas;
+        private ObservableCollection<Area> areas;
 
         public MainViewModel()
         {
             this.Entities = new ObservableCollection<Entity>();
             this.Entities.CollectionChanged += this.Entities_CollectionChanged;
 
-            this.Areas = this.PopulateAreas().ToList();
+            this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<Area> Areas
+        public ObservableCollection<Area> Areas
         {
             get => this.areas;
             set
             {
                 this.areas = value;
-                this.NotifyPropertyChanged(nameof(this.Areas));
+                this.NotifyPropertyChanged();
             }
         }
+
+        public IStepContainer SelectedStepContainer
+        {
+            get => this.selectedStepContainer;
+            set
+            {
+                this.selectedStepContainer = value;
+                this.NotifyPropertyChanged(nameof(this.CanAddStep));
+            }
+        }
+
 
         public Step SelectedStep
         {
@@ -74,6 +87,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
+        public bool CanAddStep => this.SelectedStepContainer != null;
+
+        public DelegateCommand AddStepCommand => new DelegateCommand(this.AddStep);
+
         public ObservableCollection<Entity> Entities { get; set; }
 
         private void Entities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -84,6 +101,11 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
 
             this.selectedStep.Entities = this.Entities;
+        }
+
+        private void AddStep(object obj)
+        {
+            this.selectedStepContainer.Steps.Add(new Step());
         }
 
         private IEnumerable<Area> PopulateAreas()

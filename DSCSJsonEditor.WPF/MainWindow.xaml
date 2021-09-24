@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Style="{StaticResource HeaderStackPanel}">
-            <Button Width="32" Content="+" Command="{Binding AddStep}" IsEnabled="{Binding CanExecute}" />
+            <Button Width="32" Content="+" Command="{Binding AddStepCommand}" IsEnabled="{Binding CanAddStep}" />
             <Button Width="32" Content="-"/>
         </StackPanel>
 
@@ -39,14 +39,14 @@
             <Button Width="64" Content="Export" />
         </StackPanel>
 
-        <TreeView Grid.Row="1" Grid.RowSpan="2" Margin="3px" ItemsSource="{Binding Areas}">
+        <TreeView Grid.Row="1" Grid.RowSpan="2" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged">
             <TreeView.Resources>
                 <HierarchicalDataTemplate ItemsSource="{Binding Steps}" DataType="{x:Type models:Area}">
-                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding Name}" MinWidth="24px"/>
                 </HierarchicalDataTemplate>
 
                 <DataTemplate DataType="{x:Type models:Step}">
-                    <TextBlock Text="{Binding Description}" />
+                    <TextBlock Text="{Binding Description}" MinWidth="24px" />
                 </DataTemplate>
             </TreeView.Resources>
         </TreeView>
