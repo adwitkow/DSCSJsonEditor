@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DSCSJsonEditor.Core.Models
 {
@@ -24,11 +25,11 @@ namespace DSCSJsonEditor.Core.Models
         {
             this.Name = name;
 
-            this.Steps = new List<Step>();
+            this.Steps = new ObservableCollection<Step>();
         }
 
         public string Name { get; set; }
 
-        public ICollection<Step> Steps { get; set; }
+        public ObservableCollection<Step> Steps { get; set; }
     }
 }
