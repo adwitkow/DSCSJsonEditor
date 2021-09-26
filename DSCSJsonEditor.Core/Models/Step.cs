@@ -21,17 +21,20 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class Step : IStepContainer
     {
-        public Step()
+        public Step(IStepContainer parent)
         {
+            this.Parent = parent;
             this.Entities = new List<Entity>();
             this.Steps = new ObservableCollection<Step>();
             this.Filters = new List<string>();
         }
 
-        public Step(string description) : this()
+        public Step(IStepContainer parent, string description) : this(parent)
         {
             this.Description = description;
         }
+
+        public IStepContainer Parent { get; }
 
         public string Description { get; set; }
 

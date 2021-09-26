@@ -108,7 +108,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         private void AddStep(object obj)
         {
-            this.selectedStepContainer.Steps.Add(new Step("New Item"));
+            var newStep = new Step(this.selectedStepContainer, "New Item");
+            this.selectedStepContainer.Steps.Add(newStep);
         }
 
         private void RemoveStep(object obj)
