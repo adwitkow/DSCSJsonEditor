@@ -68,6 +68,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.selectedStep = value;
                 this.BindEntities(value);
                 this.NotifyPropertyChanged(nameof(this.Description));
+                this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
             }
         }
 
