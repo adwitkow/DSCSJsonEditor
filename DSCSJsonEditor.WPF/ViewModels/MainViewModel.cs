@@ -90,6 +90,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand AddStepCommand => new DelegateCommand(this.AddStep);
 
+        public bool CanRemoveStep => this.SelectedStep != null;
+
+        public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
+
         public ObservableCollection<Entity> Entities { get; set; }
 
         private void Entities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -105,6 +109,11 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private void AddStep(object obj)
         {
             this.selectedStepContainer.Steps.Add(new Step("New Item"));
+        }
+
+        private void RemoveStep(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private IEnumerable<Area> PopulateAreas()

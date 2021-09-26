@@ -31,7 +31,7 @@
 
         <StackPanel Style="{StaticResource HeaderStackPanel}">
             <Button Width="32" Content="+" Command="{Binding AddStepCommand}" IsEnabled="{Binding CanAddStep}" />
-            <Button Width="32" Content="-"/>
+            <Button Width="32" Content="-" Command="{Binding RemoveStepCommand}" IsEnabled="{Binding CanRemoveStep}"/>
         </StackPanel>
 
         <StackPanel Style="{StaticResource HeaderStackPanel}" HorizontalAlignment="Right">
