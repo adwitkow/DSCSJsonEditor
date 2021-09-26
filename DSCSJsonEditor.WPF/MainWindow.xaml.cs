@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Windows;
 using DSCSJsonEditor.Core.Models;
 using DSCSJsonEditor.WPF.ViewModels;
@@ -38,19 +39,27 @@ namespace DSCSJsonEditor.WPF
 
         private void BindSelectedStepContainer(object obj)
         {
+            // TODO: Access the ViewModel safely, without the cast
             if (obj is IStepContainer step)
             {
-                // TODO: Access the ViewModel safely, without the cast
                 ((MainViewModel)this.DataContext).SelectedStepContainer = step;
+            }
+            else
+            {
+                ((MainViewModel)this.DataContext).SelectedStepContainer = null;
             }
         }
 
         private void BindSelectedStep(object obj)
         {
+            // TODO: Access the ViewModel safely, without the cast
             if (obj is Step step)
             {
-                // TODO: Access the ViewModel safely, without the cast
                 ((MainViewModel)this.DataContext).SelectedStep = step;
+            }
+            else
+            {
+                ((MainViewModel)this.DataContext).SelectedStep = null;
             }
         }
     }
