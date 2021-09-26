@@ -115,7 +115,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         private void RemoveStep(object obj)
         {
-            throw new NotImplementedException();
+            var parent = this.selectedStep.Parent;
+            parent.Steps.Remove(this.selectedStep);
         }
 
         private IEnumerable<Area> PopulateAreas()
