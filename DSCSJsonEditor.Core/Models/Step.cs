@@ -28,6 +28,11 @@ namespace DSCSJsonEditor.Core.Models
             this.Filters = new List<string>();
         }
 
+        public Step(string description) : this()
+        {
+            this.Description = description;
+        }
+
         public string Description { get; set; }
 
         public IList<Entity> Entities { get; set; }

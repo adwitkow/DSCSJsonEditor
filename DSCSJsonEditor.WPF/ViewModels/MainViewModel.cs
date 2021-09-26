@@ -104,7 +104,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         private void AddStep(object obj)
         {
-            this.selectedStepContainer.Steps.Add(new Step());
+            this.selectedStepContainer.Steps.Add(new Step("New Item"));
         }
 
         private IEnumerable<Area> PopulateAreas()
