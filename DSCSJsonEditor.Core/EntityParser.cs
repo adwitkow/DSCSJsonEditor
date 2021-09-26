@@ -20,11 +20,11 @@ using System.Text.RegularExpressions;
 
 namespace DSCSJsonEditor.Core
 {
-    public class EntityParser
+    public static class EntityParser
     {
         private static readonly Regex KeywordPattern = new Regex(@"@\w+");
 
-        public IEnumerable<string> Parse(string text)
+        public static IEnumerable<string> Parse(string text)
         {
             if (string.IsNullOrEmpty(text))
             {
