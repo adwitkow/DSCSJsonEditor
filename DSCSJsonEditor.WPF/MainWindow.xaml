@@ -41,7 +41,13 @@
             <Button Width="64" Content="Export" />
         </StackPanel>
 
-        <TreeView Grid.Row="1" Grid.RowSpan="3" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged">
+        <TreeView Grid.Row="1" Grid.RowSpan="3" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <TreeView.ItemsPanel>
+                <!-- https://stackoverflow.com/questions/3225940/prevent-automatic-horizontal-scroll-in-treeview -->
+                <ItemsPanelTemplate>
+                    <StackPanel MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=1}}" />
+                </ItemsPanelTemplate>
+            </TreeView.ItemsPanel>
             <TreeView.Resources>
                 <HierarchicalDataTemplate ItemsSource="{Binding Steps}" DataType="{x:Type models:Area}">
                     <TextBlock Text="{Binding Name}" MinWidth="24px"/>
