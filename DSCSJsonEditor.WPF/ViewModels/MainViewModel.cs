@@ -69,7 +69,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.selectedStep = value;
                 this.BindEntities(value);
                 this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.Description));
+                this.NotifyPropertyChanged(nameof(this.CanEditStep));
                 this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
             }
         }
@@ -81,17 +81,21 @@ namespace DSCSJsonEditor.WPF.ViewModels
             {
                 this.selectedEntity = value;
                 this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.CanEditEntity));
             }
         }
 
-
-        public bool CanAddStep => this.SelectedStepContainer != null;
-
         public DelegateCommand AddStepCommand => new DelegateCommand(this.AddStep);
+
+        public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
 
         public bool CanRemoveStep => this.SelectedStep != null;
 
-        public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
+        public bool CanAddStep => this.SelectedStepContainer != null;
+
+        public bool CanEditStep => this.selectedStep != null;
+
+        public bool CanEditEntity => this.selectedEntity != null;
 
         public ObservableCollection<Entity> Entities { get; set; }
 
