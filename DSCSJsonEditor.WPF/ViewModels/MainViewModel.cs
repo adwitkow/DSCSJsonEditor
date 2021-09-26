@@ -14,11 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
 
 namespace DSCSJsonEditor.WPF.ViewModels
@@ -32,9 +34,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public MainViewModel()
         {
-            this.Entities = new ObservableCollection<Entity>();
-            this.Entities.CollectionChanged += this.Entities_CollectionChanged;
-
             this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
         }
 
@@ -67,7 +66,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
             set
             {
                 this.selectedStep = value;
-                this.BindEntities(value);
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.CanEditStep));
                 this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
@@ -97,7 +95,34 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 }
 
                 this.selectedStep.Description = value;
+                this.UpdateEntities(value);
                 this.NotifyPropertyChanged();
+            }
+        }
+
+        private void UpdateEntities(string description)
+        {
+            var entityNames = EntityParser.Parse(description).ToList();
+
+            // find entities that exist in the viewmodel but not in parsed results and delete them
+            var matchingEntities = this.Entities.Where(entity => entityNames.Contains(entity.TagName));
+            for (int i = this.Entities.Count - 1; i >= 0; i--)
+            {
+                var existingEntity = this.Entities.ElementAt(i);
+                if (!matchingEntities.Contains(existingEntity))
+                {
+                    this.Entities.Remove(existingEntity);
+                }
+            }
+
+            // find entities that were returned from parser but aren't available in viewmodel and add them
+            var existingEntityNames = this.Entities.Select(entity => entity.TagName);
+            var entityNamesToAdd = entityNames.Where(entityName => !existingEntityNames.Contains(entityName));
+            var entitiesToAdd = entityNamesToAdd.Select(entityName => new Entity(entityName));
+
+            foreach (var entity in entitiesToAdd)
+            {
+                this.Entities.Add(entity);
             }
         }
 
@@ -113,17 +138,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public bool CanEditEntity => this.selectedEntity != null;
 
-        public ObservableCollection<Entity> Entities { get; set; }
-
-        private void Entities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (this.selectedStep is null)
-            {
-                return;
-            }
-
-            this.selectedStep.Entities = this.Entities;
-        }
+        public ObservableCollection<Entity> Entities { get => this.selectedStep.Entities; }
 
         private void AddStep(object obj)
         {
@@ -140,21 +155,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private IEnumerable<Area> PopulateAreas()
         {
             return Constants.AreaNames.Select(areaName => new Area(areaName));
-        }
-
-        private void BindEntities(Step step)
-        {
-            this.Entities.Clear();
-
-            if (step is null)
-            {
-                return;
-            }
-
-            foreach (var entity in step.Entities)
-            {
-                this.Entities.Add(entity);
-            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
