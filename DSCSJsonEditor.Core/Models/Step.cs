@@ -16,10 +16,12 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DSCSJsonEditor.Core.Models
 {
-    public class Step : IStepContainer
+    public class Step : IStepContainer, INotifyPropertyChanged
     {
         public Step(IStepContainer parent)
         {
@@ -36,12 +38,30 @@ namespace DSCSJsonEditor.Core.Models
 
         public IStepContainer Parent { get; }
 
-        public string Description { get; set; }
+        private string description;
+
+        public string Description
+        {
+            get => this.description;
+            set
+            {
+                this.description = value;
+                NotifyPropertyChanged();
+            }
+        }
+
 
         public IList<Entity> Entities { get; set; }
 
         public ObservableCollection<Step> Steps { get; set; }
 
         public ICollection<string> Filters { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

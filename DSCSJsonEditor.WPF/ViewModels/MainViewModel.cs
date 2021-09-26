@@ -56,6 +56,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             set
             {
                 this.selectedStepContainer = value;
+                this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.CanAddStep));
             }
         }
@@ -67,6 +68,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             {
                 this.selectedStep = value;
                 this.BindEntities(value);
+                this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.Description));
                 this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
             }
@@ -82,20 +84,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
-        public string Description
-        {
-            get => this.SelectedStep?.Description;
-            set
-            {
-                if (this.selectedStep is null)
-                {
-                    return;
-                }
-
-                this.SelectedStep.Description = value;
-                this.NotifyPropertyChanged();
-            }
-        }
 
         public bool CanAddStep => this.SelectedStepContainer != null;
 
