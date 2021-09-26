@@ -18,11 +18,6 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class EntityDetails
     {
-        public EntityDetails()
-        {
-            this.NewGamePlusEntity = new EntityDetails();
-        }
-
         public string Name { get; set; }
 
         public string WikiUrl { get; set; }
