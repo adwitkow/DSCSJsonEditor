@@ -27,6 +27,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
     {
         private IStepContainer selectedStepContainer;
         private Step selectedStep;
+        private Entity selectedEntity;
         private ObservableCollection<Area> areas;
 
         public MainViewModel()
@@ -68,6 +69,16 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.BindEntities(value);
                 this.NotifyPropertyChanged(nameof(this.Description));
                 this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
+            }
+        }
+
+        public Entity SelectedEntity
+        {
+            get => this.selectedEntity;
+            set
+            {
+                this.selectedEntity = value;
+                this.NotifyPropertyChanged();
             }
         }
 
