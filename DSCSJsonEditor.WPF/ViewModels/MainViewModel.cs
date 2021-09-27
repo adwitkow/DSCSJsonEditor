@@ -30,6 +30,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private IStepContainer selectedStepContainer;
         private Step selectedStep;
         private Entity selectedEntity;
+        private Filter selectedFilter;
         private ObservableCollection<Area> areas;
 
         public MainViewModel()
@@ -84,6 +85,17 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
+        public Filter SelectedFilter
+        {
+            get => this.selectedFilter;
+            set
+            {
+                this.selectedFilter = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.CanRemoveFilter));
+            }
+        }
+
         public string Description
         {
             get => this.SelectedStep?.Description;
@@ -130,6 +142,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
 
+        public DelegateCommand AddFilterCommand => new DelegateCommand(this.AddFilter);
+
+        public DelegateCommand RemoveFilterCommand => new DelegateCommand(this.RemoveFilter);
+
         public bool CanRemoveStep => this.SelectedStep != null;
 
         public bool CanAddStep => this.SelectedStepContainer != null;
@@ -137,6 +153,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
         public bool CanEditStep => this.selectedStep != null;
 
         public bool CanEditEntity => this.selectedEntity != null;
+
+        public bool CanRemoveFilter => this.selectedFilter is not null;
 
         public ObservableCollection<Entity> Entities { get => this.selectedStep.Entities; }
 
@@ -150,6 +168,16 @@ namespace DSCSJsonEditor.WPF.ViewModels
         {
             var parent = this.selectedStep.Parent;
             parent.Steps.Remove(this.selectedStep);
+        }
+
+        private void RemoveFilter(object obj)
+        {
+            this.selectedStep.Filters.Remove(this.selectedFilter);
+        }
+
+        private void AddFilter(object obj)
+        {
+            this.selectedStep.Filters.Add(new Filter("New Filter"));
         }
 
         private IEnumerable<Area> PopulateAreas()

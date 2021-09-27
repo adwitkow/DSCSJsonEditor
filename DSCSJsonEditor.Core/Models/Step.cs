@@ -28,7 +28,7 @@ namespace DSCSJsonEditor.Core.Models
             this.Parent = parent;
             this.Entities = new ObservableCollection<Entity>();
             this.Steps = new ObservableCollection<Step>();
-            this.Filters = new List<string>();
+            this.Filters = new ObservableCollection<Filter>();
         }
 
         public Step(IStepContainer parent, string description) : this(parent)
@@ -55,7 +55,7 @@ namespace DSCSJsonEditor.Core.Models
 
         public ObservableCollection<Step> Steps { get; set; }
 
-        public ICollection<string> Filters { get; set; }
+        public ObservableCollection<Filter> Filters { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
