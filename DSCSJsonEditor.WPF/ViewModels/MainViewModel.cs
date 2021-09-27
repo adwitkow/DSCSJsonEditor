@@ -82,6 +82,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.selectedEntity = value;
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.CanEditEntity));
+                this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusName));
+                this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusWikiUrl));
             }
         }
 
@@ -109,6 +111,50 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.selectedStep.Description = value;
                 this.UpdateEntities(value);
                 this.NotifyPropertyChanged();
+            }
+        }
+
+        public string SelectedEntityNewGamePlusName
+        {
+            get => this.selectedEntity?.Details.NewGamePlusEntity?.Name;
+            set
+            {
+                // TODO: This is ugly, fix this or at least move it somewhere else
+                if (string.IsNullOrEmpty(value) && this.selectedEntity.Details.NewGamePlusEntity?.WikiUrl is null)
+                {
+                    this.selectedEntity.Details.NewGamePlusEntity = null;
+                }
+                else
+                {
+                    if (this.selectedEntity.Details.NewGamePlusEntity is null)
+                    {
+                        this.selectedEntity.Details.NewGamePlusEntity = new EntityDetails();
+                    }
+
+                    this.selectedEntity.Details.NewGamePlusEntity.Name = value;
+                }
+            }
+        }
+
+        public string SelectedEntityNewGamePlusWikiUrl
+        {
+            get => this.selectedEntity?.Details.NewGamePlusEntity?.WikiUrl;
+            set
+            {
+                // TODO: This is ugly, fix this or at least move it somewhere else
+                if (string.IsNullOrEmpty(value) && this.selectedEntity.Details.NewGamePlusEntity?.Name is null)
+                {
+                    this.selectedEntity.Details.NewGamePlusEntity = null;
+                }
+                else
+                {
+                    if (this.selectedEntity.Details.NewGamePlusEntity is null)
+                    {
+                        this.selectedEntity.Details.NewGamePlusEntity = new EntityDetails();
+                    }
+
+                    this.selectedEntity.Details.NewGamePlusEntity.WikiUrl = value;
+                }
             }
         }
 

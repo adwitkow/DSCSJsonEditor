@@ -97,10 +97,10 @@
             <TextBox Margin="3px" Text="{Binding SelectedEntity.Details.WikiUrl}"/>
 
             <TextBlock Margin="3px" Text="NG+ Name"/>
-            <TextBox Margin="3px" Text="{Binding SelectedEntity.Details.NewGamePlusEntity.Name}"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntityNewGamePlusName}"/>
 
             <TextBlock Margin="3px" Text="NG+ Wiki URL"/>
-            <TextBox Margin="3px" Text="{Binding SelectedEntity.Details.NewGamePlusEntity.WikiUrl}"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntityNewGamePlusWikiUrl}"/>
         </StackPanel>
     </Grid>
 </Window>
