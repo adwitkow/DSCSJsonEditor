@@ -38,7 +38,7 @@
 
         <StackPanel Style="{StaticResource HeaderStackPanel}" HorizontalAlignment="Right">
             <Button Width="64" Content="Import" />
-            <Button Width="64" Content="Export" />
+            <Button Width="64" Content="Export" Command="{Binding ExportCommand}" />
         </StackPanel>
 
         <TreeView Grid.Row="1" Grid.RowSpan="3" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden">

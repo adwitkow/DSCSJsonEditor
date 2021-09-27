@@ -18,10 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
@@ -192,6 +195,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand RemoveFilterCommand => new DelegateCommand(this.RemoveFilter);
 
+        public DelegateCommand ExportCommand => new DelegateCommand(this.Export);
+
         public bool CanRemoveStep => this.SelectedStep != null;
 
         public bool CanAddStep => this.SelectedStepContainer != null;
@@ -224,6 +229,23 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private void AddFilter(object obj)
         {
             this.selectedStep.Filters.Add(new Filter("New Filter"));
+        }
+
+        private void Export(object obj)
+        {
+            var contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy(),
+            };
+
+            // TODO: Save the serialized data
+            Trace.WriteLine(JsonConvert.SerializeObject(this.areas, new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ContractResolver = contractResolver,
+            }));
         }
 
         private IEnumerable<Area> PopulateAreas()
