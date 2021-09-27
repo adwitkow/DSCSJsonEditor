@@ -23,6 +23,8 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class Step : IStepContainer, INotifyPropertyChanged
     {
+        private string description;
+
         public Step(IStepContainer parent)
         {
             this.Parent = parent;
@@ -31,14 +33,15 @@ namespace DSCSJsonEditor.Core.Models
             this.Filters = new ObservableCollection<Filter>();
         }
 
-        public Step(IStepContainer parent, string description) : this(parent)
+        public Step(IStepContainer parent, string description)
+            : this(parent)
         {
             this.Description = description;
         }
 
-        public IStepContainer Parent { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private string description;
+        public IStepContainer Parent { get; }
 
         public string Description
         {
@@ -46,18 +49,15 @@ namespace DSCSJsonEditor.Core.Models
             set
             {
                 this.description = value;
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanged();
             }
         }
-
 
         public ObservableCollection<Entity> Entities { get; set; }
 
         public ObservableCollection<Step> Steps { get; set; }
 
         public ObservableCollection<Filter> Filters { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {

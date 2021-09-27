@@ -161,32 +161,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
-        private void UpdateEntities(string description)
-        {
-            var entityNames = EntityParser.Parse(description).ToList();
-
-            // find entities that exist in the viewmodel but not in parsed results and delete them
-            var matchingEntities = this.Entities.Where(entity => entityNames.Contains(entity.TagName));
-            for (int i = this.Entities.Count - 1; i >= 0; i--)
-            {
-                var existingEntity = this.Entities.ElementAt(i);
-                if (!matchingEntities.Contains(existingEntity))
-                {
-                    this.Entities.Remove(existingEntity);
-                }
-            }
-
-            // find entities that were returned from parser but aren't available in viewmodel and add them
-            var existingEntityNames = this.Entities.Select(entity => entity.TagName);
-            var entityNamesToAdd = entityNames.Where(entityName => !existingEntityNames.Contains(entityName));
-            var entitiesToAdd = entityNamesToAdd.Select(entityName => new Entity(entityName));
-
-            foreach (var entity in entitiesToAdd)
-            {
-                this.Entities.Add(entity);
-            }
-        }
-
         public DelegateCommand AddStepCommand => new DelegateCommand(this.AddStep);
 
         public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
@@ -246,6 +220,32 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 ContractResolver = contractResolver,
             }));
+        }
+
+        private void UpdateEntities(string description)
+        {
+            var entityNames = EntityParser.Parse(description).ToList();
+
+            // find entities that exist in the viewmodel but not in parsed results and delete them
+            var matchingEntities = this.Entities.Where(entity => entityNames.Contains(entity.TagName));
+            for (int i = this.Entities.Count - 1; i >= 0; i--)
+            {
+                var existingEntity = this.Entities.ElementAt(i);
+                if (!matchingEntities.Contains(existingEntity))
+                {
+                    this.Entities.Remove(existingEntity);
+                }
+            }
+
+            // find entities that were returned from parser but aren't available in viewmodel and add them
+            var existingEntityNames = this.Entities.Select(entity => entity.TagName);
+            var entityNamesToAdd = entityNames.Where(entityName => !existingEntityNames.Contains(entityName));
+            var entitiesToAdd = entityNamesToAdd.Select(entityName => new Entity(entityName));
+
+            foreach (var entity in entitiesToAdd)
+            {
+                this.Entities.Add(entity);
+            }
         }
 
         private IEnumerable<Area> PopulateAreas()
