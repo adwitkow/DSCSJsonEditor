@@ -207,19 +207,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         private void Export(object obj)
         {
-            var contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(),
-            };
-
             // TODO: Save the serialized data
-            Trace.WriteLine(JsonConvert.SerializeObject(this.areas, new JsonSerializerSettings()
-            {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                ContractResolver = contractResolver,
-            }));
+            Trace.WriteLine(JsonExporter.Export(this.areas));
         }
 
         private void UpdateEntities(string description)
