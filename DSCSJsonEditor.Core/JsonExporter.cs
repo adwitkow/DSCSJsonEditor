@@ -14,6 +14,27 @@ namespace DSCSJsonEditor.Core
     {
         public static string Export(IEnumerable<Area> areas)
         {
+            var serializer = CreateSerializer();
+
+            using (var textWriter = new StringWriter())
+            {
+                serializer.Serialize(textWriter, areas);
+                return textWriter.ToString();
+            }
+        }
+
+        public static IEnumerable<Area> Import(string json)
+        {
+            var serializer = CreateSerializer();
+
+            var reader = new JsonTextReader(new StringReader(json));
+
+            return serializer.Deserialize<IEnumerable<Area>>(reader);
+        }
+
+        private static JsonSerializer CreateSerializer()
+        {
+
             var contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy(),
@@ -29,11 +50,7 @@ namespace DSCSJsonEditor.Core
 
             serializer.Converters.Add(new FilterConverter());
 
-            using (var textWriter = new StringWriter())
-            {
-                serializer.Serialize(textWriter, areas);
-                return textWriter.ToString();
-            }
+            return serializer;
         }
 
         private class FilterConverter : JsonConverter<Filter>
