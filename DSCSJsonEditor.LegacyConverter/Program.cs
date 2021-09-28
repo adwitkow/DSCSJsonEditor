@@ -1,17 +1,32 @@
-﻿using DSCSJsonEditor.Core;
-using DSCSJsonEditor.Core.Models;
-using HtmlAgilityPack;
-using System;
+﻿// This file is part of DSCSJsonEditor project <https://github.com/adwitkow/DSCSJsonEditor>
+// Copyright (C) 2021  Adam Witkowski <https://github.com/adwitkow/>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DSCSJsonEditor.Core;
+using DSCSJsonEditor.Core.Models;
+using HtmlAgilityPack;
 
 namespace DSCSJsonEditor.LegacyConverter
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var outputAreas = new List<Area>();
 
@@ -38,12 +53,13 @@ namespace DSCSJsonEditor.LegacyConverter
                 var areaStepElements = areaListElement.ChildNodes.Where(node => node.Name == "li");
 
                 var totalsId = Regex.Match(span.Id, @"playthrough_totals_(?<Id>\d+)");
-                
-                var area = new Area(titleAnchor.InnerText.Trim());
 
-                area.Name = id;
-                area.Id = int.Parse(totalsId.Groups["Id"].Value); // TODO: Do this safely
-                area.WikiUrl = titleAnchor.Attributes["href"].Value;
+                var area = new Area(titleAnchor.InnerText.Trim())
+                {
+                    Name = id,
+                    Id = int.Parse(totalsId.Groups["Id"].Value), // TODO: Do this safely
+                    WikiUrl = titleAnchor.Attributes["href"].Value,
+                };
 
                 foreach (var htmlStep in areaStepElements)
                 {
@@ -79,7 +95,7 @@ namespace DSCSJsonEditor.LegacyConverter
                 }
 
                 var entityName = HtmlEntity.DeEntitize(childNode.InnerText.Trim());
-                var tagName = entityName.Replace("'", "");
+                var tagName = entityName.Replace("'", string.Empty);
                 tagName = Regex.Replace(tagName, @"\W", "-");
                 tagName = $"@{tagName.ToLower()}";
 
