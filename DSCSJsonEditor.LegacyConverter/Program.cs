@@ -1,6 +1,5 @@
 ﻿using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
-using DSCSJsonEditor.LegacyConverter.HtmlModel;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -24,14 +23,27 @@ namespace DSCSJsonEditor.LegacyConverter
 
             var mainElement = document.GetElementbyId("playthrough_list");
             var areaHeaders = mainElement.Descendants("h3");
-            var areas = areaHeaders.Select(node => new HtmlArea(node.Id, node.InnerText.Trim()));
 
-            foreach (var htmlArea in areas)
+            foreach (var areaHeader in areaHeaders)
             {
-                var areaListElement = document.GetElementbyId(htmlArea.ListId);
+                var id = areaHeader.Id;
+                var text = areaHeader.InnerText.Trim();
+                var listId = $"{id}_col";
+
+                var span = areaHeader.Descendants("span").FirstOrDefault();
+                var titleAnchor = areaHeader.Descendants("a")
+                    .FirstOrDefault(node => !string.IsNullOrWhiteSpace(node.InnerText));
+
+                var areaListElement = document.GetElementbyId(listId);
                 var areaStepElements = areaListElement.ChildNodes.Where(node => node.Name == "li");
 
-                var area = new Area(htmlArea.Name);
+                var totalsId = Regex.Match(span.Id, @"playthrough_totals_(?<Id>\d+)");
+                
+                var area = new Area(titleAnchor.InnerText.Trim());
+
+                area.Name = id;
+                area.Id = int.Parse(totalsId.Groups["Id"].Value); // TODO: Do this safely
+                area.WikiUrl = titleAnchor.Attributes["href"].Value;
 
                 foreach (var htmlStep in areaStepElements)
                 {

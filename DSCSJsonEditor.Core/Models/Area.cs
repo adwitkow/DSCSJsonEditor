@@ -21,14 +21,17 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class Area : IStepContainer
     {
-        public Area(string name)
+        public Area(string displayName)
         {
-            this.Name = name;
+            this.DisplayName = displayName;
 
             this.Steps = new ObservableCollection<Step>();
         }
 
         public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public string WikiUrl { get; set; }
+        public int Id { get; set; }
 
         public ObservableCollection<Step> Steps { get; set; }
     }
