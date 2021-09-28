@@ -22,7 +22,7 @@ namespace DSCSJsonEditor.Core
 {
     public static class EntityParser
     {
-        private static readonly Regex KeywordPattern = new Regex(@"@\w+");
+        private static readonly Regex KeywordPattern = new Regex(@"@[\w-]+");
 
         public static IEnumerable<string> Parse(string text)
         {
