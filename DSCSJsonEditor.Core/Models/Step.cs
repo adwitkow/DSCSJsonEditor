@@ -25,6 +25,10 @@ namespace DSCSJsonEditor.Core.Models
     {
         private string description;
 
+        public Step()
+        {
+        }
+
         public Step(IStepContainer parent)
         {
             this.Parent = parent;

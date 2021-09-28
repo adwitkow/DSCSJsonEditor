@@ -18,6 +18,10 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class Filter
     {
+        public Filter()
+        {
+        }
+
         public Filter(string name)
         {
             this.Name = name;
