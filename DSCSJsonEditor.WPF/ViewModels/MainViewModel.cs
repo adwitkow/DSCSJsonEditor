@@ -23,6 +23,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -171,6 +172,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand ExportCommand => new DelegateCommand(this.Export);
 
+        public DelegateCommand ImportCommand => new DelegateCommand(this.Import);
+
         public bool CanRemoveStep => this.SelectedStep != null;
 
         public bool CanAddStep => this.SelectedStepContainer != null;
@@ -209,6 +212,17 @@ namespace DSCSJsonEditor.WPF.ViewModels
         {
             // TODO: Save the serialized data
             Trace.WriteLine(JsonExporter.Export(this.areas));
+        }
+
+        private void Import(object obj)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+
+            var filePath = dialog.FileName;
+            var json = System.IO.File.ReadAllText(filePath);
+
+            this.Areas = new ObservableCollection<Area>(JsonExporter.Import(json));
         }
 
         private void UpdateEntities(string description)

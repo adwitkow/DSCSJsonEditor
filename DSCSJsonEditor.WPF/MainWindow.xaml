@@ -37,7 +37,7 @@
         </StackPanel>
 
         <StackPanel Style="{StaticResource HeaderStackPanel}" HorizontalAlignment="Right">
-            <Button Width="64" Content="Import" />
+            <Button Width="64" Content="Import" Command="{Binding ImportCommand}" />
             <Button Width="64" Content="Export" Command="{Binding ExportCommand}" />
         </StackPanel>
 
