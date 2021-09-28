@@ -12,6 +12,13 @@ namespace DSCSJsonEditor.Core
 {
     public static class JsonExporter
     {
+        private static readonly string FileHeader = @"/*
+   This file was generated using DSCSJsonEditor <https://github.com/adwitkow/DSCSJsonEditor>
+*/
+
+";
+        private static readonly string DataPrefix = @"const playthroughData = ";
+
         public static string Export(IEnumerable<Area> areas)
         {
             var serializer = CreateSerializer();
@@ -19,7 +26,13 @@ namespace DSCSJsonEditor.Core
             using (var textWriter = new StringWriter())
             {
                 serializer.Serialize(textWriter, areas);
-                return textWriter.ToString();
+
+                var builder = new StringBuilder();
+                builder.Append(FileHeader)
+                    .Append(DataPrefix)
+                    .Append(textWriter.ToString());
+
+                return builder.ToString();
             }
         }
 
