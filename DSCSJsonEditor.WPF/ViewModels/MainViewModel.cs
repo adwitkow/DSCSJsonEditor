@@ -29,7 +29,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
         private IStepContainer selectedStepContainer;
         private Step selectedStep;
@@ -42,15 +42,12 @@ namespace DSCSJsonEditor.WPF.ViewModels
             this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<Area> Areas
         {
             get => this.areas;
             set
             {
-                this.areas = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.areas, value);
             }
         }
 
@@ -59,9 +56,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.selectedStepContainer;
             set
             {
-                this.selectedStepContainer = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.CanAddStep));
+                if (this.SetProperty(ref this.selectedStepContainer, value))
+                {
+                    this.NotifyPropertyChanged(nameof(this.CanAddStep));
+                }
             }
         }
 
@@ -70,11 +68,12 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.selectedStep;
             set
             {
-                this.selectedStep = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.CanEditStep));
-                this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
-                this.NotifyPropertyChanged(nameof(this.Description));
+                if (this.SetProperty(ref this.selectedStep, value))
+                {
+                    this.NotifyPropertyChanged(nameof(this.CanEditStep));
+                    this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
+                    this.NotifyPropertyChanged(nameof(this.Description));
+                }
             }
         }
 
@@ -83,11 +82,12 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.selectedEntity;
             set
             {
-                this.selectedEntity = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.CanEditEntity));
-                this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusName));
-                this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusWikiUrl));
+                if (this.SetProperty(ref this.selectedEntity, value))
+                {
+                    this.NotifyPropertyChanged(nameof(this.CanEditEntity));
+                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusName));
+                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusWikiUrl));
+                }
             }
         }
 
@@ -96,9 +96,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.selectedFilter;
             set
             {
-                this.selectedFilter = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.CanRemoveFilter));
+                if (this.SetProperty(ref this.selectedFilter, value))
+                {
+                    this.NotifyPropertyChanged(nameof(this.CanRemoveFilter));
+                }
             }
         }
 
@@ -254,11 +255,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private IEnumerable<Area> PopulateAreas()
         {
             return Constants.AreaNames.Select(areaName => new Area(areaName));
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
