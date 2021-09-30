@@ -36,7 +36,7 @@ namespace DSCSJsonEditor.WPF
             this.ServiceProvider = serviceCollection.BuildServiceProvider();
 
             var mainWindow = this.ServiceProvider.GetRequiredService<MainWindow>();
-            var mainViewModel = this.ServiceProvider.GetRequiredService<MainViewModel>();
+            var mainViewModel = this.ServiceProvider.GetRequiredService<MainWindowViewModel>();
             mainWindow.DataContext = mainViewModel;
             mainWindow.Show();
         }
@@ -44,7 +44,9 @@ namespace DSCSJsonEditor.WPF
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
-            services.AddScoped<MainViewModel>();
+            services.AddScoped<MainWindowViewModel>();
+            services.AddScoped<NavigationViewModel>();
+            services.AddScoped<EditStepViewModel>();
         }
     }
 }

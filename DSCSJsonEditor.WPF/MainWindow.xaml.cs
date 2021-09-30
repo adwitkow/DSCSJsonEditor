@@ -29,37 +29,5 @@ namespace DSCSJsonEditor.WPF
         {
             this.InitializeComponent();
         }
-
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            this.BindSelectedStep(e.NewValue);
-            this.BindSelectedStepContainer(e.NewValue);
-        }
-
-        private void BindSelectedStepContainer(object obj)
-        {
-            // TODO: Access the ViewModel safely, without the cast
-            if (obj is IStepContainer step)
-            {
-                ((MainViewModel)this.DataContext).SelectedStepContainer = step;
-            }
-            else
-            {
-                ((MainViewModel)this.DataContext).SelectedStepContainer = null;
-            }
-        }
-
-        private void BindSelectedStep(object obj)
-        {
-            // TODO: Access the ViewModel safely, without the cast
-            if (obj is Step step)
-            {
-                ((MainViewModel)this.DataContext).SelectedStep = step;
-            }
-            else
-            {
-                ((MainViewModel)this.DataContext).SelectedStep = null;
-            }
-        }
     }
 }

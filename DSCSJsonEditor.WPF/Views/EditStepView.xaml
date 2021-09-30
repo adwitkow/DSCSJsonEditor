@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="DSCSJsonEditor.WPF.Views.EditStepView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DSCSJsonEditor.WPF.Views"
+             xmlns:models="clr-namespace:DSCSJsonEditor.Core.Models;assembly=DSCSJsonEditor.Core"
+             xmlns:viewmodels="clr-namespace:DSCSJsonEditor.WPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:EditStepViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="32px" MaxHeight="64px"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="184px"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.ColumnSpan="2" Margin="3px" TextWrapping="Wrap" SpellCheck.IsEnabled="True" IsEnabled="{Binding CanEditStep}"
+                 VerticalScrollBarVisibility="Auto" TextAlignment="Justify" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <ListBox Grid.Row="1" Margin="3px" ItemsSource="{Binding SelectedStep.Entities}" SelectedItem="{Binding SelectedEntity}" IsEnabled="{Binding CanEditStep}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Entity}">
+                    <TextBlock Text="{Binding TagName}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <DockPanel Grid.Column="2" Grid.Row="1" IsEnabled="{Binding CanEditStep}">
+            <DockPanel DockPanel.Dock="Bottom">
+                <TextBox Margin="3px" Text="{Binding SelectedFilter.Name,UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+            <ListBox Margin="3px" ItemsSource="{Binding SelectedStep.Filters}" DockPanel.Dock="Top" SelectedItem="{Binding SelectedFilter}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add" Command="{Binding AddFilterCommand}"/>
+                        <MenuItem Header="Remove" IsEnabled="{Binding CanRemoveFilter}" Command="{Binding RemoveFilterCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Filter}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" IsEnabled="{Binding CanEditEntity}">
+            <TextBlock Margin="3px" Text="Name"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntity.Details.Name}"/>
+
+            <TextBlock Margin="3px" Text="Wiki URL"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntity.Details.WikiUrl}"/>
+
+            <TextBlock Margin="3px" Text="NG+ Name"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntityNewGamePlusName}"/>
+
+            <TextBlock Margin="3px" Text="NG+ Wiki URL"/>
+            <TextBox Margin="3px" Text="{Binding SelectedEntityNewGamePlusWikiUrl}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

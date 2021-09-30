@@ -1,64 +1,31 @@
-﻿// This file is part of DSCSJsonEditor project <https://github.com/adwitkow/DSCSJsonEditor>
-// Copyright (C) 2021  Adam Witkowski <https://github.com/adwitkow/>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
+﻿using DSCSJsonEditor.Core;
+using DSCSJsonEditor.Core.Models;
+using DSCSJsonEditor.WPF.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using DSCSJsonEditor.Core;
-using DSCSJsonEditor.Core.Models;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class EditStepViewModel : ViewModelBase
     {
-        private IStepContainer selectedStepContainer;
         private Step selectedStep;
         private Entity selectedEntity;
         private Filter selectedFilter;
-        private ObservableCollection<Area> areas;
 
-        public MainViewModel()
+        public Entity SelectedEntity
         {
-            this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
-        }
-
-        public ObservableCollection<Area> Areas
-        {
-            get => this.areas;
+            get => this.selectedEntity;
             set
             {
-                this.SetProperty(ref this.areas, value);
-            }
-        }
-
-        public IStepContainer SelectedStepContainer
-        {
-            get => this.selectedStepContainer;
-            set
-            {
-                if (this.SetProperty(ref this.selectedStepContainer, value))
+                if (this.SetProperty(ref this.selectedEntity, value))
                 {
-                    this.NotifyPropertyChanged(nameof(this.CanAddStep));
+                    this.NotifyPropertyChanged(nameof(this.CanEditEntity));
+                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusName));
+                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusWikiUrl));
                 }
             }
         }
@@ -71,22 +38,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 if (this.SetProperty(ref this.selectedStep, value))
                 {
                     this.NotifyPropertyChanged(nameof(this.CanEditStep));
-                    this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
                     this.NotifyPropertyChanged(nameof(this.Description));
-                }
-            }
-        }
-
-        public Entity SelectedEntity
-        {
-            get => this.selectedEntity;
-            set
-            {
-                if (this.SetProperty(ref this.selectedEntity, value))
-                {
-                    this.NotifyPropertyChanged(nameof(this.CanEditEntity));
-                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusName));
-                    this.NotifyPropertyChanged(nameof(this.SelectedEntityNewGamePlusWikiUrl));
                 }
             }
         }
@@ -108,12 +60,12 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.SelectedStep?.Description;
             set
             {
-                if (this.selectedStep is null)
+                if (this.SelectedStep is null)
                 {
                     return;
                 }
 
-                this.selectedStep.Description = value;
+                this.SelectedStep.Description = value;
                 this.UpdateEntities(value);
                 this.NotifyPropertyChanged();
             }
@@ -163,67 +115,31 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
-        public DelegateCommand AddStepCommand => new DelegateCommand(this.AddStep);
-
-        public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
-
         public DelegateCommand AddFilterCommand => new DelegateCommand(this.AddFilter);
 
         public DelegateCommand RemoveFilterCommand => new DelegateCommand(this.RemoveFilter);
 
-        public DelegateCommand ExportCommand => new DelegateCommand(this.Export);
-
-        public DelegateCommand ImportCommand => new DelegateCommand(this.Import);
-
-        public bool CanRemoveStep => this.SelectedStep != null;
-
-        public bool CanAddStep => this.SelectedStepContainer != null;
-
-        public bool CanEditStep => this.selectedStep != null;
+        public bool CanEditStep => this.selectedStep is not null;
 
         public bool CanEditEntity => this.selectedEntity != null;
 
         public bool CanRemoveFilter => this.selectedFilter is not null;
 
-        public ObservableCollection<Entity> Entities { get => this.selectedStep.Entities; }
+        public ObservableCollection<Entity> Entities { get => this.SelectedStep.Entities; }
 
-        private void AddStep(object obj)
+        public void SelectedStepChanged(object sender, SelectedStepChangedEventArgs e)
         {
-            var newStep = new Step(this.selectedStepContainer, "New Item");
-            this.selectedStepContainer.Steps.Add(newStep);
-        }
-
-        private void RemoveStep(object obj)
-        {
-            var parent = this.selectedStep.Parent;
-            parent.Steps.Remove(this.selectedStep);
+            this.SelectedStep = e.NewStep;
         }
 
         private void RemoveFilter(object obj)
         {
-            this.selectedStep.Filters.Remove(this.selectedFilter);
+            this.SelectedStep.Filters.Remove(this.selectedFilter);
         }
 
         private void AddFilter(object obj)
         {
-            this.selectedStep.Filters.Add(new Filter("New Filter"));
-        }
-
-        private void Export(object obj)
-        {
-            // TODO: Save the serialized data
-            Trace.WriteLine(JsonExporter.Export(this.areas));
-        }
-
-        private void Import(object obj)
-        {
-            var dialog = new OpenFileDialog();
-            dialog.ShowDialog();
-
-            var filePath = dialog.FileName;
-            var json = System.IO.File.ReadAllText(filePath);
-
-            this.Areas = new ObservableCollection<Area>(JsonExporter.Import(json));
+            this.SelectedStep.Filters.Add(new Filter("New Filter"));
         }
 
         private void UpdateEntities(string description)
@@ -250,11 +166,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
             {
                 this.Entities.Add(entity);
             }
-        }
-
-        private IEnumerable<Area> PopulateAreas()
-        {
-            return Constants.AreaNames.Select(areaName => new Area(areaName));
         }
     }
 }
