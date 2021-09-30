@@ -33,11 +33,17 @@ namespace DSCSJsonEditor.WPF.ViewModels
     {
         private NavigationViewModel navigationViewModel;
         private EditStepViewModel editStepViewModel;
+        private EditAreaViewModel editAreaViewModel;
 
-        public MainWindowViewModel(NavigationViewModel navigationViewModel, EditStepViewModel editStepViewModel)
+        private ViewModelBase editViewModel;
+
+        public MainWindowViewModel(NavigationViewModel navigationViewModel, EditStepViewModel editStepViewModel, EditAreaViewModel editAreaViewModel)
         {
             this.NavigationViewModel = navigationViewModel;
             this.EditStepViewModel = editStepViewModel;
+            this.EditAreaViewModel = editAreaViewModel;
+
+            this.EditViewModel = editStepViewModel;
 
             this.navigationViewModel.SelectedStepContainerChanged += this.NavigationViewModel_SelectedStepContainerChanged;
         }
@@ -59,9 +65,37 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.SetProperty(ref this.editStepViewModel, value);
             }
         }
+
+        public EditAreaViewModel EditAreaViewModel
+        {
+            get => this.editAreaViewModel;
+            set
+            {
+                this.SetProperty(ref this.editAreaViewModel, value);
+            }
+        }
+
+        public ViewModelBase EditViewModel
+        {
+            get => this.editViewModel;
+            set
+            {
+                this.SetProperty(ref this.editViewModel, value);
+            }
+        }
+
         private void NavigationViewModel_SelectedStepContainerChanged(object sender, Events.SelectedStepContainerChangedEventArgs e)
         {
             this.editStepViewModel.SelectedStep = e.NewStepContainer as Step;
+
+            if (e.NewStepContainer is Area)
+            {
+                this.EditViewModel = this.editAreaViewModel;
+            }
+            else
+            {
+                this.EditViewModel = this.editStepViewModel;
+            }
         }
     }
 }

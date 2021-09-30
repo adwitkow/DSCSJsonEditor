@@ -47,6 +47,7 @@ namespace DSCSJsonEditor.WPF
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<NavigationViewModel>();
             services.AddScoped<EditStepViewModel>();
+            services.AddScoped<EditAreaViewModel>();
         }
     }
 }
