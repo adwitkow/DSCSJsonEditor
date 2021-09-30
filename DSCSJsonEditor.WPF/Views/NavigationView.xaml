@@ -47,9 +47,9 @@
                     <TextBlock Text="{Binding DisplayName}" MinWidth="24px"/>
                 </HierarchicalDataTemplate>
 
-                <DataTemplate DataType="{x:Type models:Step}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Steps}" DataType="{x:Type models:Step}">
                     <TextBlock Text="{Binding Description}" MinWidth="24px" />
-                </DataTemplate>
+                </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>
     </Grid>
