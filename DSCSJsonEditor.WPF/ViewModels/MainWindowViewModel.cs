@@ -39,7 +39,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             this.NavigationViewModel = navigationViewModel;
             this.EditStepViewModel = editStepViewModel;
 
-            this.navigationViewModel.SelectedStepChanged += editStepViewModel.SelectedStepChanged;
+            this.navigationViewModel.SelectedStepContainerChanged += this.NavigationViewModel_SelectedStepContainerChanged;
         }
 
         public NavigationViewModel NavigationViewModel
@@ -58,6 +58,10 @@ namespace DSCSJsonEditor.WPF.ViewModels
             {
                 this.SetProperty(ref this.editStepViewModel, value);
             }
+        }
+        private void NavigationViewModel_SelectedStepContainerChanged(object sender, Events.SelectedStepContainerChangedEventArgs e)
+        {
+            this.editStepViewModel.SelectedStep = e.NewStepContainer as Step;
         }
     }
 }

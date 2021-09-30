@@ -19,16 +19,16 @@ using DSCSJsonEditor.Core.Models;
 
 namespace DSCSJsonEditor.WPF.Events
 {
-    public class SelectedStepChangedEventArgs : EventArgs
+    public class SelectedStepContainerChangedEventArgs : EventArgs
     {
-        public SelectedStepChangedEventArgs(Step oldStep, Step newStep)
+        public SelectedStepContainerChangedEventArgs(IStepContainer oldStepContainer, IStepContainer newStepContainer)
         {
-            this.OldStep = oldStep;
-            this.NewStep = newStep;
+            this.OldStepContainer = oldStepContainer;
+            this.NewStepContainer = newStepContainer;
         }
 
-        public Step OldStep { get; }
+        public IStepContainer OldStepContainer { get; }
 
-        public Step NewStep { get; }
+        public IStepContainer NewStepContainer { get; }
     }
 }

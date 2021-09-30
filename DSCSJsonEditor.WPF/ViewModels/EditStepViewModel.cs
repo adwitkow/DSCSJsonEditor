@@ -140,11 +140,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public ObservableCollection<Entity> Entities { get => this.SelectedStep.Entities; }
 
-        public void SelectedStepChanged(object sender, SelectedStepChangedEventArgs e)
-        {
-            this.SelectedStep = e.NewStep;
-        }
-
         private void RemoveFilter(object obj)
         {
             this.SelectedStep.Filters.Remove(this.selectedFilter);

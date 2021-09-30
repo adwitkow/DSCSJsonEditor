@@ -35,7 +35,7 @@
             <Button Width="64" Content="Export" Command="{Binding ExportCommand}" />
         </StackPanel>
 
-        <TreeView Grid.Row="1" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        <TreeView Grid.Row="1" Margin="3px" ItemsSource="{Binding Areas}" SelectedItemChanged="TreeView_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MouseDown="TreeView_MouseDown" TreeViewItem.Selected="TreeView_Selected" >
             <TreeView.ItemsPanel>
                 <!-- https://stackoverflow.com/questions/3225940/prevent-automatic-horizontal-scroll-in-treeview -->
                 <ItemsPanelTemplate>

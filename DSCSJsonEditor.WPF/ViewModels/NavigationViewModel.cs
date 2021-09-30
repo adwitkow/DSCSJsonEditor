@@ -29,7 +29,6 @@ namespace DSCSJsonEditor.WPF.ViewModels
     public class NavigationViewModel : ViewModelBase
     {
         private IStepContainer selectedStepContainer;
-        private Step selectedStep;
 
         private ObservableCollection<Area> areas;
 
@@ -38,7 +37,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
         }
 
-        public event EventHandler<SelectedStepChangedEventArgs> SelectedStepChanged;
+        public event EventHandler<SelectedStepContainerChangedEventArgs> SelectedStepContainerChanged;
 
         public ObservableCollection<Area> Areas
         {
@@ -54,23 +53,11 @@ namespace DSCSJsonEditor.WPF.ViewModels
             get => this.selectedStepContainer;
             set
             {
+                var oldContainer = this.selectedStepContainer;
                 if (this.SetProperty(ref this.selectedStepContainer, value))
                 {
-                    this.NotifyPropertyChanged(nameof(this.CanAddStep));
-                }
-            }
-        }
-
-        public Step SelectedStep
-        {
-            get => this.selectedStep;
-            set
-            {
-                var oldStep = this.selectedStep;
-                if (this.SetProperty(ref this.selectedStep, value))
-                {
-                    this.OnSelectedStepChanged(oldStep, value);
-                    this.NotifyPropertyChanged(nameof(this.CanRemoveStep));
+                    this.OnSelectedStepChanged(oldContainer, value);
+                    this.NotifyPropertyChanged(nameof(this.CanModifyStep));
                 }
             }
         }
@@ -79,17 +66,15 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand RemoveStepCommand => new DelegateCommand(this.RemoveStep);
 
-        public bool CanRemoveStep => this.SelectedStep != null;
-
-        public bool CanAddStep => this.SelectedStepContainer != null;
+        public bool CanModifyStep => this.selectedStepContainer != null;
 
         public DelegateCommand ExportCommand => new DelegateCommand(this.Export);
 
         public DelegateCommand ImportCommand => new DelegateCommand(this.Import);
 
-        protected void OnSelectedStepChanged(Step oldStep, Step newStep)
+        protected void OnSelectedStepChanged(IStepContainer oldStep, IStepContainer newStep)
         {
-            this.SelectedStepChanged?.Invoke(this, new SelectedStepChangedEventArgs(oldStep, newStep));
+            this.SelectedStepContainerChanged?.Invoke(this, new SelectedStepContainerChangedEventArgs(oldStep, newStep));
         }
 
         private void Export(object obj)
@@ -111,14 +96,29 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         private void AddStep(object obj)
         {
-            var newStep = new Step(this.selectedStepContainer, "New Item");
-            this.selectedStepContainer.Steps.Add(newStep);
+            if (this.selectedStepContainer is IStepContainer)
+            {
+                var newStep = new Step(this.selectedStepContainer, "New Item");
+                this.selectedStepContainer.Steps.Add(newStep);
+            }
+            else
+            {
+                var newArea = new Area("New Area");
+                this.areas.Add(newArea);
+            }
         }
 
         private void RemoveStep(object obj)
         {
-            var parent = this.selectedStep.Parent;
-            parent.Steps.Remove(this.selectedStep);
+            if (this.selectedStepContainer is Step step)
+            {
+                var parent = step.Parent;
+                parent.Steps.Remove(step);
+            }
+            else if (this.selectedStepContainer is Area area)
+            {
+                this.areas.Remove(area);
+            }
         }
 
         private IEnumerable<Area> PopulateAreas()

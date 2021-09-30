@@ -26,6 +26,8 @@ namespace DSCSJsonEditor.WPF.Views
     /// </summary>
     public partial class NavigationView : UserControl
     {
+        private TreeViewItem lastSelectedTreeViewItem;
+
         public NavigationView()
         {
             this.InitializeComponent();
@@ -33,7 +35,6 @@ namespace DSCSJsonEditor.WPF.Views
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            this.BindSelectedStep(e.NewValue);
             this.BindSelectedStepContainer(e.NewValue);
         }
 
@@ -50,17 +51,21 @@ namespace DSCSJsonEditor.WPF.Views
             }
         }
 
-        private void BindSelectedStep(object obj)
+        private void TreeView_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            // TODO: Access the ViewModel safely, without the cast
-            if (obj is Step step)
+            if (!(e.OriginalSource is TextBlock) && this.lastSelectedTreeViewItem is not null)
             {
-                ((NavigationViewModel)this.DataContext).SelectedStep = step;
+                this.lastSelectedTreeViewItem.IsSelected = false;
             }
-            else
-            {
-                ((NavigationViewModel)this.DataContext).SelectedStep = null;
-            }
+        }
+
+        private void TreeView_Selected(object sender, RoutedEventArgs e)
+        {
+            // https://stackoverflow.com/questions/616948/how-to-get-treeviewitem-from-hierarchicaldatatemplate-item
+            var treeViewItem = e.OriginalSource as TreeViewItem;
+
+            // set the last tree view item selected variable which may be used elsewhere as there is no other way I have found to obtain the TreeViewItem container (may be null)
+            this.lastSelectedTreeViewItem = treeViewItem;
         }
     }
 }
