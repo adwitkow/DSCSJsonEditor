@@ -53,7 +53,7 @@ namespace DSCSJsonEditor.Core
         {
             var serializer = CreateSerializer();
 
-            var reader = new JsonTextReader(new StringReader(json));
+            var reader = new JsonTextReader(new StringReader(json.Replace(DataPrefix, string.Empty)));
 
             return serializer.Deserialize<IEnumerable<Area>>(reader);
         }
