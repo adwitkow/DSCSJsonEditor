@@ -10,14 +10,21 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:NavigationViewModel}">
+            <views:NavigationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:EditStepViewModel}">
+            <views:EditStepView />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MinWidth="256px"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <views:NavigationView DataContext="{Binding NavigationViewModel}"/>
-
-        <views:EditStepView DataContext="{Binding EditStepViewModel}" Grid.Column="1"/>
+        <ContentControl Content="{Binding NavigationViewModel}" />
+        <ContentControl Content="{Binding EditStepViewModel}" Grid.Column="1" />
     </Grid>
 </Window>
