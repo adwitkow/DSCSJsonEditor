@@ -14,18 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
