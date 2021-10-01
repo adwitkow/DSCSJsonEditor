@@ -86,12 +86,16 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private void Import(object obj)
         {
             var dialog = new OpenFileDialog();
-            dialog.ShowDialog();
+            var dialogResult = dialog.ShowDialog();
 
-            var filePath = dialog.FileName;
-            var json = System.IO.File.ReadAllText(filePath);
+            // Nullable bool..
+            if (dialogResult == true)
+            {
+                var filePath = dialog.FileName;
+                var json = System.IO.File.ReadAllText(filePath);
 
-            this.Areas = new ObservableCollection<Area>(JsonExporter.Import(json));
+                this.Areas = new ObservableCollection<Area>(JsonExporter.Import(json));
+            }
         }
 
         private void AddStep(object obj)
