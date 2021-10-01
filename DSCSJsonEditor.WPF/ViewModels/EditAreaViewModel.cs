@@ -30,6 +30,5 @@ namespace DSCSJsonEditor.WPF.ViewModels
                 this.SetProperty(ref this.selectedArea, value);
             }
         }
-
     }
 }
