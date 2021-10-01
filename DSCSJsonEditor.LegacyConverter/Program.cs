@@ -54,7 +54,7 @@ namespace DSCSJsonEditor.LegacyConverter
 
                 var totalsId = Regex.Match(span.Id, @"playthrough_totals_(?<Id>\d+)");
 
-                var area = new Area(titleAnchor.InnerText.Trim())
+                var area = new Area(areaHeader.InnerText.Trim())
                 {
                     Name = id,
                     Id = int.Parse(totalsId.Groups["Id"].Value), // TODO: Do this safely
