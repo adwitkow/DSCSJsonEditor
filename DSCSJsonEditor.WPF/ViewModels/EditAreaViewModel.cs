@@ -14,9 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using DSCSJsonEditor.Core.Models;
+
 namespace DSCSJsonEditor.WPF.ViewModels
 {
     public class EditAreaViewModel : ViewModelBase
     {
+        private Area selectedArea;
+
+        public Area SelectedArea
+        {
+            get => this.selectedArea;
+            set
+            {
+                this.SetProperty(ref this.selectedArea, value);
+            }
+        }
+
     }
 }

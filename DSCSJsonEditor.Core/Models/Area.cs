@@ -15,11 +15,19 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DSCSJsonEditor.Core.Models
 {
-    public class Area : IStepContainer
+    public class Area : IStepContainer, INotifyPropertyChanged
     {
+        private string name;
+        private string displayName;
+        private string wikiUrl;
+        private int id;
+        private ObservableCollection<Step> steps;
+
         public Area(string displayName)
         {
             this.DisplayName = displayName;
@@ -27,14 +35,61 @@ namespace DSCSJsonEditor.Core.Models
             this.Steps = new ObservableCollection<Step>();
         }
 
-        public string Name { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public string DisplayName { get; set; }
+        public string Name
+        {
+            get => this.name;
+            set
+            {
+                this.name = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
-        public string WikiUrl { get; set; }
+        public string DisplayName
+        {
+            get => this.displayName;
+            set
+            {
+                this.displayName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
-        public int Id { get; set; }
+        public string WikiUrl
+        {
+            get => this.wikiUrl;
+            set
+            {
+                this.wikiUrl = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
-        public ObservableCollection<Step> Steps { get; set; }
+        public int Id
+        {
+            get => this.id;
+            set
+            {
+                this.id = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Step> Steps
+        {
+            get => this.steps;
+            set
+            {
+                this.steps = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

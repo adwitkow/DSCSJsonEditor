@@ -76,6 +76,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private void NavigationViewModel_SelectedStepContainerChanged(object sender, Events.SelectedStepContainerChangedEventArgs e)
         {
             this.editStepViewModel.SelectedStep = e.NewStepContainer as Step;
+            this.editAreaViewModel.SelectedArea = e.NewStepContainer as Area;
 
             if (e.NewStepContainer is Area)
             {

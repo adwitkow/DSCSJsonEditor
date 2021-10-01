@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DSCSJsonEditor.WPF.Views"
+             xmlns:models="clr-namespace:DSCSJsonEditor.Core.Models;assembly=DSCSJsonEditor.Core"
+             xmlns:viewmodels="clr-namespace:DSCSJsonEditor.WPF.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:EditAreaViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Edit Area View"  />
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="3px">
+                <TextBlock Text="ID" />
+                <TextBox Text="{Binding SelectedArea.Id}"/>
+                <TextBlock Text="Name" />
+                <TextBox Text="{Binding SelectedArea.Name}"/>
+                <TextBlock Text="Display Name" />
+                <TextBox Text="{Binding SelectedArea.DisplayName}"/>
+                <TextBlock Text="Wiki URL" />
+                <TextBox Text="{Binding SelectedArea.WikiUrl}"/>
+            </StackPanel>
+
+            <ListBox ItemsSource="{Binding SelectedArea.Steps}" DockPanel.Dock="Bottom" Margin="3px">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Step}">
+                        <TextBlock Text="{Binding Description}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
     </Grid>
 </UserControl>
