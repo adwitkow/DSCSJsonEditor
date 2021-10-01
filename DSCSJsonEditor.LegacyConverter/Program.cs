@@ -14,8 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DSCSJsonEditor.Core;
@@ -28,10 +30,14 @@ namespace DSCSJsonEditor.LegacyConverter
     {
         public static void Main(string[] args)
         {
+            var stopwatch = Stopwatch.StartNew();
             var outputAreas = new List<Area>();
 
             var inputPath = args[0];
             var outputPath = args[1];
+
+            Console.WriteLine($"Input path: {inputPath}");
+            Console.WriteLine($"Output path: {outputPath}");
 
             var document = new HtmlDocument();
             document.Load(inputPath);
@@ -73,9 +79,16 @@ namespace DSCSJsonEditor.LegacyConverter
                 }
 
                 outputAreas.Add(area);
+
+                var entityCount = area.Steps.Sum(step => step.Entities.Count);
+                Console.WriteLine($"Added {area.DisplayName} (Steps: {area.Steps.Count}, Entities: {entityCount})");
             }
 
             System.IO.File.WriteAllText(outputPath, JsonExporter.Export(outputAreas));
+
+            stopwatch.Stop();
+            Console.WriteLine();
+            Console.WriteLine($"Finished successfuly in {stopwatch.Elapsed.TotalSeconds}s.");
         }
 
         private static IEnumerable<Entity> ParseEntities(HtmlNode node)
