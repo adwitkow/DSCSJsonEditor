@@ -20,9 +20,16 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.ColumnSpan="2" Margin="3px" TextWrapping="Wrap" SpellCheck.IsEnabled="True" IsEnabled="{Binding CanEditStep}"
+        <DockPanel Grid.ColumnSpan="2">
+            <TextBox DockPanel.Dock="Left" Margin="3px" Text="{Binding SelectedStep.Id}"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                     MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
+            
+            <TextBox DockPanel.Dock="Right" Margin="3px" TextWrapping="Wrap" SpellCheck.IsEnabled="True" IsEnabled="{Binding CanEditStep}"
                  VerticalScrollBarVisibility="Auto" TextAlignment="Justify" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
+        </DockPanel>
+        
         <ListBox Grid.Row="1" Margin="3px" ItemsSource="{Binding SelectedStep.Entities}" SelectedItem="{Binding SelectedEntity}" IsEnabled="{Binding CanEditStep}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Entity}">

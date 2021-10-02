@@ -22,6 +22,7 @@ namespace DSCSJsonEditor.Core.Models
 {
     public class Step : IStepContainer, INotifyPropertyChanged
     {
+        private int id;
         private string description;
 
         public Step()
@@ -45,6 +46,16 @@ namespace DSCSJsonEditor.Core.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IStepContainer Parent { get; }
+
+        public int Id
+        {
+            get => this.id;
+            set
+            {
+                this.id = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         public string Description
         {

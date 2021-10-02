@@ -71,6 +71,11 @@ namespace DSCSJsonEditor.LegacyConverter
                 {
                     var step = new Step(area);
                     var filters = htmlStep.GetClasses().Select(c => new Filter(c));
+                    var dataId = htmlStep.Attributes["data-id"].Value;
+                    var stepIdMatch = Regex.Match(dataId, @"playthrough_\d+_(?<Id>\d+)");
+                    var stepId = int.Parse(stepIdMatch.Groups["Id"].Value); // TODO: Do this safely
+
+                    step.Id = stepId;
                     step.Filters = new ObservableCollection<Filter>(filters);
 
                     step.Entities = new ObservableCollection<Entity>(ParseEntities(htmlStep));
