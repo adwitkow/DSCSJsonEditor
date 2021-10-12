@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using DSCSJsonEditor.Core;
-using DSCSJsonEditor.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using DSCSJsonEditor.Core;
+using DSCSJsonEditor.Core.Models;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
