@@ -30,21 +30,20 @@ namespace DSCSJsonEditor.WPF.ViewModels
     {
         private IStepContainer selectedStepContainer;
 
-        private ObservableCollection<Area> areas;
-
-        public NavigationViewModel()
+        public NavigationViewModel(AreaContainer areaContainer)
         {
-            this.Areas = new ObservableCollection<Area>(this.PopulateAreas());
+            this.AreaContainer = areaContainer;
         }
 
         public event EventHandler<SelectedStepContainerChangedEventArgs> SelectedStepContainerChanged;
 
         public ObservableCollection<Area> Areas
         {
-            get => this.areas;
+            get => this.AreaContainer.Areas;
             set
             {
-                this.SetProperty(ref this.areas, value);
+                this.AreaContainer.Areas = value;
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -72,6 +71,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
 
         public DelegateCommand ImportCommand => new DelegateCommand(this.Import);
 
+        public AreaContainer AreaContainer { get; }
+
         protected void OnSelectedStepChanged(IStepContainer oldStep, IStepContainer newStep)
         {
             this.SelectedStepContainerChanged?.Invoke(this, new SelectedStepContainerChangedEventArgs(oldStep, newStep));
@@ -80,7 +81,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
         private void Export(object obj)
         {
             // TODO: Save the serialized data
-            Trace.WriteLine(JsonExporter.Export(this.areas));
+            Trace.WriteLine(JsonExporter.Export(this.Areas));
         }
 
         private void Import(object obj)
@@ -108,7 +109,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             else
             {
                 var newArea = new Area("New Area");
-                this.areas.Add(newArea);
+                this.Areas.Add(newArea);
             }
         }
 
@@ -121,13 +122,8 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
             else if (this.selectedStepContainer is Area area)
             {
-                this.areas.Remove(area);
+                this.Areas.Remove(area);
             }
-        }
-
-        private IEnumerable<Area> PopulateAreas()
-        {
-            return Constants.AreaNames.Select(areaName => new Area(areaName));
         }
     }
 }

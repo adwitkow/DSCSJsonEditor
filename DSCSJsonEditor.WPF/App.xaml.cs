@@ -16,6 +16,7 @@
 
 using System;
 using System.Windows;
+using DSCSJsonEditor.Core;
 using DSCSJsonEditor.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -44,6 +45,7 @@ namespace DSCSJsonEditor.WPF
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<AreaContainer>();
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<NavigationViewModel>();
             services.AddScoped<EditStepViewModel>();
