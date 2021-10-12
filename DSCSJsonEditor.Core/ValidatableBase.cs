@@ -27,7 +27,7 @@ namespace DSCSJsonEditor.Core
 {
     public abstract class ValidatableBase : BindableBase, INotifyDataErrorInfo
     {
-        private Dictionary<string, ICollection<string>> errors;
+        private readonly Dictionary<string, ICollection<string>> errors;
 
         public ValidatableBase()
         {
