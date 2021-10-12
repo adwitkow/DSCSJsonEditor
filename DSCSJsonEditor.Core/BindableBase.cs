@@ -17,9 +17,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DSCSJsonEditor.WPF.ViewModels
+namespace DSCSJsonEditor.Core
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class BindableBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

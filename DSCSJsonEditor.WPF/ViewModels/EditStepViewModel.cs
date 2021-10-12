@@ -23,7 +23,7 @@ using DSCSJsonEditor.WPF.Events;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class EditStepViewModel : ViewModelBase
+    public class EditStepViewModel : BindableBase
     {
         private Step selectedStep;
         private Entity selectedEntity;

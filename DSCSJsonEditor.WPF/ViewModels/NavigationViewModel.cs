@@ -26,7 +26,7 @@ using Microsoft.Win32;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class NavigationViewModel : ViewModelBase
+    public class NavigationViewModel : BindableBase
     {
         private IStepContainer selectedStepContainer;
 

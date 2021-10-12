@@ -14,17 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : BindableBase
     {
         private NavigationViewModel navigationViewModel;
         private EditStepViewModel editStepViewModel;
         private EditAreaViewModel editAreaViewModel;
 
-        private ViewModelBase editViewModel;
+        private BindableBase editViewModel;
 
         public MainWindowViewModel(NavigationViewModel navigationViewModel, EditStepViewModel editStepViewModel, EditAreaViewModel editAreaViewModel)
         {
@@ -64,7 +65,7 @@ namespace DSCSJsonEditor.WPF.ViewModels
             }
         }
 
-        public ViewModelBase EditViewModel
+        public BindableBase EditViewModel
         {
             get => this.editViewModel;
             set
