@@ -13,7 +13,7 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Margin="3px">
                 <TextBlock Text="ID" />
-                <TextBox Text="{Binding SelectedArea.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Name" />
                 <TextBox Text="{Binding SelectedArea.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Display Name" />

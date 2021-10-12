@@ -16,12 +16,24 @@
 
 using DSCSJsonEditor.Core;
 using DSCSJsonEditor.Core.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DSCSJsonEditor.WPF.ViewModels
 {
-    public class EditAreaViewModel : BindableBase
+    public class EditAreaViewModel : ValidatableBase
     {
         private Area selectedArea;
+        private string id;
+
+        public EditAreaViewModel(AreaContainer container)
+        {
+            this.AreaContainer = container;
+        }
+
+        public AreaContainer AreaContainer { get; }
 
         public Area SelectedArea
         {
@@ -29,7 +41,48 @@ namespace DSCSJsonEditor.WPF.ViewModels
             set
             {
                 this.SetProperty(ref this.selectedArea, value);
+                this.id = this.selectedArea.Id.ToString();
+                this.NotifyPropertyChanged(nameof(this.Id));
             }
+        }
+
+        [CustomValidation(typeof(EditAreaViewModel), nameof(ValidateId))]
+        public string Id
+        {
+            get => this.id;
+            set
+            {
+                if (this.SetProperty(ref this.id, value))
+                {
+                    var intValue = int.Parse(value);
+                    this.selectedArea.Id = intValue;
+                }
+            }
+        }
+
+        public static ValidationResult ValidateId(string id, ValidationContext context)
+        {
+            var viewModel = context.ObjectInstance as EditAreaViewModel;
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return new ValidationResult("ID cannot be empty.");
+            }
+
+            var isInt = int.TryParse(id, out int intId);
+
+            if (!isInt)
+            {
+                return new ValidationResult("ID must be a number.");
+            }
+
+            var takenIds = viewModel.AreaContainer.Areas.Select(area => area.Id);
+            if (takenIds.Contains(intId))
+            {
+                return new ValidationResult($"ID {intId} is already taken.");
+            }
+
+            return null;
         }
     }
 }
