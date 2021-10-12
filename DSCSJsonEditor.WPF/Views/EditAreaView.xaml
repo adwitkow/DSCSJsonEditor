@@ -13,13 +13,13 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Margin="3px">
                 <TextBlock Text="ID" />
-                <TextBox Text="{Binding SelectedArea.Id}"/>
+                <TextBox Text="{Binding SelectedArea.Id, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Name" />
-                <TextBox Text="{Binding SelectedArea.Name}"/>
+                <TextBox Text="{Binding SelectedArea.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Display Name" />
-                <TextBox Text="{Binding SelectedArea.DisplayName}"/>
+                <TextBox Text="{Binding SelectedArea.DisplayName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Wiki URL" />
-                <TextBox Text="{Binding SelectedArea.WikiUrl}"/>
+                <TextBox Text="{Binding SelectedArea.WikiUrl, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <ListBox ItemsSource="{Binding SelectedArea.Steps}" DockPanel.Dock="Bottom" Margin="3px">
