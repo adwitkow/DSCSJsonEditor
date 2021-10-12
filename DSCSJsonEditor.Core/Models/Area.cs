@@ -14,13 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace DSCSJsonEditor.Core.Models
 {
-    public class Area : IStepContainer, INotifyPropertyChanged
+    public class Area : ValidatableBase, IStepContainer
     {
         private string name;
         private string displayName;
@@ -35,45 +40,43 @@ namespace DSCSJsonEditor.Core.Models
             this.Steps = new ObservableCollection<Step>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        [Required]
         public string Name
         {
             get => this.name;
             set
             {
-                this.name = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.name, value);
             }
         }
 
+        [Required]
         public string DisplayName
         {
             get => this.displayName;
             set
             {
-                this.displayName = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.displayName, value);
             }
         }
 
+        [Required]
         public string WikiUrl
         {
             get => this.wikiUrl;
             set
             {
-                this.wikiUrl = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.wikiUrl, value);
             }
         }
 
+        [Required]
         public int Id
         {
             get => this.id;
             set
             {
-                this.id = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.id, value);
             }
         }
 
@@ -82,14 +85,8 @@ namespace DSCSJsonEditor.Core.Models
             get => this.steps;
             set
             {
-                this.steps = value;
-                this.NotifyPropertyChanged();
+                this.SetProperty(ref this.steps, value);
             }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
